@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+/* ให้ dark: ของ Tailwind ทำงานตาม class "dark" บน <html>
+   Make Tailwind dark: follow the "dark" class on <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+}
+
+body {
+  color: #0f172a;
+  background-color: #f7f7f5;
+  background-image:
+    radial-gradient(60rem 30rem at 0% -10%, #ffedd5 0%, transparent 60%),
+    radial-gradient(50rem 30rem at 100% 0%, #d1fae5 0%, transparent 55%);
+  background-repeat: no-repeat;
+}
+
+.dark body {
+  color: #e2e8f0;
+  background-color: #0b1120;
+  background-image:
+    radial-gradient(
+      60rem 30rem at 0% -10%,
+      rgb(234 88 12 / 0.14) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      50rem 30rem at 100% 0%,
+      rgb(16 185 129 / 0.12) 0%,
+      transparent 55%
+    );
+}
+
+@keyframes todo-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+}
+
+.todo-enter {
+  animation: todo-enter 220ms ease-out;
+}
+
+/* วงนับถอยหลัง: เส้นวงกลมค่อยๆ หดจาก 100 เหลือ 0 ใน 5 วิ
+   Countdown ring: the stroke shrinks from 100 to 0 over 5 seconds. */
+@keyframes todo-countdown {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 100;
+  }
+}
+
+.todo-countdown {
+  animation-name: todo-countdown;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+/* ตัวเลขนับถอยหลัง: ลดค่าทีละ 1 ทุกวินาที แล้วแสดงด้วย counter()
+   Countdown number: drops by 1 every second and is printed with counter(). */
+@property --todo-seconds {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@keyframes todo-seconds {
+  from {
+    --todo-seconds: var(--todo-seconds-from);
+  }
+  to {
+    --todo-seconds: 0;
+  }
+}
+
+.todo-seconds {
+  animation-name: todo-seconds;
+  animation-fill-mode: forwards;
+  counter-reset: todo-seconds var(--todo-seconds);
+}
+
+.todo-seconds::before {
+  content: counter(todo-seconds);
+}
+
+@keyframes todo-tick {
+  from {
+    transform: scale(1.35);
+    opacity: 0.4;
+  }
+}
+
+.todo-tick {
+  animation: todo-tick 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ถ้าผู้ใช้ตั้งค่าลดการเคลื่อนไหว: ปิด animation แต่ตัวเลขยังนับต่อ
+   With reduced motion, stop the movement but keep the number counting. */
+@media (prefers-reduced-motion: reduce) {
+  .todo-tick,
+  .todo-enter,
+  .todo-countdown {
+    animation: none;
+  }
+}
