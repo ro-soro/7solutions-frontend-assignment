@@ -8,7 +8,11 @@ One Next.js app with both parts of the assignment.
 | 2. Create data from API  | `/department-summary`             | [`src/app/department-summary`](src/app/department-summary) |
 | 2. JSON API              | `/api/department-summary`         | [`src/server/app.ts`](src/server/app.ts) (Hono)            |
 
-**Live demo:** _add the Vercel URL here_
+**Live demo:** https://7solutions-frontend-assignment-six.vercel.app
+
+- Assignment 1: https://7solutions-frontend-assignment-six.vercel.app/todo-list
+- Assignment 2 page: https://7solutions-frontend-assignment-six.vercel.app/department-summary
+- Assignment 2 JSON API: https://7solutions-frontend-assignment-six.vercel.app/api/department-summary
 
 **Stack:** Next.js 16 (App Router, Cache Components), React 19, TypeScript, Tailwind CSS 4, Hono (HTTP API), Vitest + Testing Library
 
